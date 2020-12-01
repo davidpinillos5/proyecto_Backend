@@ -1,7 +1,7 @@
 const router = require('express').Router()
 
-const apiUsuariosRouter = require('/api/usuarios');
-const apiPartidasRouter = require('/api/partidas');
+const apiUsuariosRouter = require('./api/usuarios');
+const apiPartidasRouter = require('./api/partidas');
 
 
 router.use('/usuarios', apiUsuariosRouter);
