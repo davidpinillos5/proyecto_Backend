@@ -1,0 +1,12 @@
+POST http://localhost:3000/api/partidas
+Content-Type: application/json
+
+{
+    "fecha": "Nombre nuevo",
+    "descripcion": "20/15/23",
+    "fk_usuario": 1,
+    "fk_juego": 2,
+    "fk_modo_juego": 2,
+    "fk_rango": 1
+}
+

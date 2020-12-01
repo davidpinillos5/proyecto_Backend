@@ -11,9 +11,9 @@ const getPartidas = () => {
     });
 };
 
-const crearPartida = ({ usuario, fecha, juego, modo_de_juego, rango, descripcion}) => {
+const crearPartida = ({fecha, descripcion, fk_usuario,fk_juego, fk_modo_juego, fk_rango }) => {
     return new Promise ((resolve, reject) => {
-        db.query('INSERT INTO partidas (usuario, fecha, juego, modo_de_juego, rango, descripcion) values (?, ?, ?, ?, ?, ?)', [usuario, fecha, juego, modo_de_juego, rango, descripcion], (error, result) => {
+        db.query('INSERT INTO partidas (fecha, descripcion, fk_usuario, fk_juego, fk_modo_juego, fk_rango) values (?, ?, ?, ?, ?, ?)', [fecha, descripcion, fk_usuario, fk_juego,  fk_modo_juego, fk_rango], (error, result) => {
             if(error) reject(error);
             resolve(result);
         });

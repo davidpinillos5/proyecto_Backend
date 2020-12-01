@@ -20,4 +20,30 @@ router.get('/', async (req, res) => {
     }
 });
 
+//Crear una nueva partida
+
+router.post('/', async (req, res) => {
+    const result = await crearPartida(req.body);
+
+    if(result.affectedRows === 1) {
+        const nuevaPartida = await getPartidaId(result.insertId);
+        res.json(nuevaPartida);
+    } else {
+        res.json({error: 'Ha ocurrido un error en la inserción de la partida.' });
+    }
+});
+
+router.delete(':partidaId', async (req, res) => {
+    try{
+        const result = await borrarPartidaId(req.params.partidaId);
+        if(result.affectedRows === 1) {
+            res.json({ mensaje: 'Se ha borrado correctamente' });
+        } else {
+            res.json({ error: 'Ha ocurrido un error al tratar de eliminar la partida' });
+        }
+    } catch (error) {
+        res.json({ error: error.message });
+    }
+});
+
 module.exports = router
