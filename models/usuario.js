@@ -13,14 +13,15 @@ const getAll = () => {
 //Obtener usuario por username
 const getByUserName = (username) => {
     return new Promise((resolve, reject) => {
-        db.query('select * FROM usuarios while username = ?', [username], (err, users) => {
+        db.query('select * FROM usuarios WHERE username = ?', [username], (err, users) => {
             if (err) reject(err);
-            resolve(users[0])
+            console.log(users);
+            resolve(users[0]);
         })
     })
 }
 
-//(getUsuario) obtener usuarios por userName o Mail
+//(getUsuario) obtener usuarios por userName o Mail para luego poder logar
 
 const getUsuarioLogin = (usernameOrMail) => {
     return new Promise((resolve, reject) => {

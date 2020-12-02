@@ -1,14 +1,11 @@
-//Lista de usuarios
+//OBTENER TODOS LOS USUARIOS
 GET http://localhost:3000/api/usuarios
 
 ###
 
-//Obtener un usuario
+//OBTENER USUARIO POR USERNAME
 
-GET http://localhost:3000/api/usuarios/user
-
-
-
+GET http://localhost:3000/api/usuarios/Carmelo
 
 
 ###
@@ -30,22 +27,7 @@ Content-Type: application/json
 POST http://localhost:3000/api/usuarios/login
 Content-Type: application/json
 
-
 {
     "valorLogin": "Carmelo",
     "password": "Carmelo123"
 }
-
-###
-POST http://localhost:3000/api/partidas
-Content-Type: application/json
-
-{
-    "fecha": "Nombre nuevo",
-    "descripcion": "20/15/23",
-    "fk_usuario": 1,
-    "fk_juego": 2,
-    "fk_modo_juego": 2,
-    "fk_rango": 1
-}
-

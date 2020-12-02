@@ -1,0 +1,22 @@
+//OBTENER TODOS LOS JUEGOS
+
+GET http://localhost:3000/api/juegos
+
+###
+
+//OBTENER UN JUEGO POR ID juegos/ID
+
+GET http://localhost:3000/api/juegos/1
+
+
+###
+
+//OBTENER TODOS LOS MODOS DE JUEGO POR CADA JUEGO (ID)
+
+GET http://localhost:3000/api/juegos/0/modos
+
+###
+
+//OBTENER TODAS LAS PARTIDAS POR CADA JUEGO (ID)
+
+GET http://localhost:3000/api/juegos/0/partidas

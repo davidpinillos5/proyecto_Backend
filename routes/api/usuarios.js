@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const dayjs = require('dayjs')
 
 const { crearUsuario, getUsuarioLogin, getAll, getByUserName } = require('../../models/usuario');
-const { json } = require('express');
 //Aqui van las peticiones
 
 
@@ -19,20 +18,20 @@ router.get('/', async (req, res) => {
 });
 
 //obtener usuario por UserName
-// !Se me ha complicado
-/*
+
+
 router.get('/:username', async (req, res) => {
 
     try {
-        const username = req.params.username
-        console.log(username);
-        const result = await getByUserName(username);
+        const usuario = await getByUserName(req.params.username)
+        console.log(usuario);
+        console.log(req.params.username);
 
-        res.json(result)
+        res.json(usuario)
     } catch (error) {
         res.json({ error: error.message })
     }
-}) */
+})
 
 //registro y login
 

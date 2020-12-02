@@ -6,7 +6,7 @@ const {
 
 const { body, validationResult } = require('express-validator');
 
-
+//RUTA /api/partidas
 //Recuperar todas las partidas de la base de datos
 
 router.get('/', async (req, res) => {
