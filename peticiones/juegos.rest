@@ -20,3 +20,15 @@ GET http://localhost:3000/api/juegos/0/modos
 //OBTENER TODAS LAS PARTIDAS POR CADA JUEGO (ID)
 
 GET http://localhost:3000/api/juegos/0/partidas
+
+###
+
+//OBTENER TODOS LOS RANGOS POR CADA JUEGO(ID)
+
+GET http://localhost:3000/api/juegos/0/rangos
+
+###
+
+//OBTENER NUMERO MÁXIMO DE JUGADORES POR MODO DE JUEGO(ID)
+
+GET http://localhost:3000/api/juegos/modos/1/jugadores

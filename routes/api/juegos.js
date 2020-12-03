@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const juego = require('../../models/juego.js');
-const { getJuegos, getJuegoById, getModosByIdJuego, getPartidasByIdJuego } = require('../../models/juego.js');
+const { getJuegos, getJuegoById, getModosByIdJuego, getPartidasByIdJuego, getRangosByIdjuego, getJugadoresByModoJuego } = require('../../models/juego.js');
 
 
 //RUTASSS /api/juegos/...
@@ -59,6 +59,32 @@ router.get('/:juegoId/partidas', async (req, res) => {
         const partidas = await getPartidasByIdJuego(juego);
 
         res.json(partidas)
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+})
+
+//Obtener todos los rangos de un juego por id del juego
+
+router.get('/:juegoId/rangos', async (req, res) => {
+    try {
+        const juego = await getJuegoById(req.params.juegoId);
+
+        const rangos = await getRangosByIdjuego(juego);
+        res.json(rangos)
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+
+
+})
+
+//Obtener el número máximo de jugadores por modo de juego
+
+router.get('/modos/:idModoJuego/jugadores', async (req, res) => {
+    try {
+        const numeroJugadores = await getJugadoresByModoJuego(req.params.idModoJuego);
+        res.json(numeroJugadores)
     } catch (error) {
         res.json({ error: error.message })
     }
