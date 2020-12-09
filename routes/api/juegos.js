@@ -28,7 +28,10 @@ router.get('/', async (req, res) => {
 router.get('/:juegoId', async (req, res) => {
     try {
         const juego = await getJuegoById(req.params.juegoId);
+        console.log((req.params.juegoId));
+
         res.json(juego)
+        console.log(juego);
     } catch (error) {
         res.json({ error: error.message })
     }
@@ -39,10 +42,11 @@ router.get('/:juegoId', async (req, res) => {
 router.get('/:juegoId/modos', async (req, res) => {
 
     try {
-        const juego = await getJuegoById(req.params.juegoId)
-        console.log(juego);
+        /* const juego = await getJuegoById(req.params.juegoId)
+        console.log(juego); */
 
-        const modos = await getModosByIdJuego(juego)
+        const modos = await getModosByIdJuego(req.params.juegoId)
+        console.log(modos);
         res.json(modos)
     } catch (error) {
         res.json({ error: error.message })
@@ -54,9 +58,9 @@ router.get('/:juegoId/modos', async (req, res) => {
 router.get('/:juegoId/partidas', async (req, res) => {
 
     try {
-        const juego = await getJuegoById(req.params.juegoId);
+        /* const juego = await getJuegoById(req.params.juegoId); */
 
-        const partidas = await getPartidasByIdJuego(juego);
+        const partidas = await getPartidasByIdJuego(req.params.juegoId);
 
         res.json(partidas)
     } catch (error) {
@@ -68,9 +72,9 @@ router.get('/:juegoId/partidas', async (req, res) => {
 
 router.get('/:juegoId/rangos', async (req, res) => {
     try {
-        const juego = await getJuegoById(req.params.juegoId);
+        /* const juego = await getJuegoById(req.params.juegoId); */
 
-        const rangos = await getRangosByIdjuego(juego);
+        const rangos = await getRangosByIdjuego(req.params.juegoId);
         res.json(rangos)
     } catch (error) {
         res.json({ error: error.message })
