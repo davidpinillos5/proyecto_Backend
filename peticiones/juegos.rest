@@ -13,11 +13,7 @@ GET http://localhost:3000/api/juegos/
 
 //OBTENER TODOS LOSMODOS  DE JUEGO POR CADA JUEGO (ID)
 
-<<<<<<< HEAD
-GET http://localhost:3000/api/juegos/2/modos
-=======
 GET http://localhost:3000/api/juegos/1/modos
->>>>>>> 79f880730bc48c37c263f5fa0de4fcaaff356284
 
 ###
 
