@@ -6,7 +6,7 @@ GET http://localhost:3000/api/juegos
 
 //OBTENER UN JUEGO POR ID juegos/ID
 
-GET http://localhost:3000/api/juegos/1
+GET http://localhost:3000/api/juegos/
 
 
 ###
