@@ -2,6 +2,10 @@
 
 //(post) Crear usuario, (pedirle username, mail, pass)
 
+
+
+
+
 const getAll = () => {
     return new Promise((resolve, reject) => {
         db.query('select * FROM usuarios', (error, usuarios) => {
@@ -10,16 +14,17 @@ const getAll = () => {
         })
     })
 }
-//Obtener usuario por username
-const getByUserName = (username) => {
+//Obtener usuario por Id
+const getById = (usuarioId) => {
     return new Promise((resolve, reject) => {
-        db.query('select * FROM usuarios WHERE username = ?', [username], (err, users) => {
+        db.query('select * FROM usuarios WHERE id = ?', [usuarioId], (err, users) => {
             if (err) reject(err);
             console.log(users);
             resolve(users[0]);
         })
     })
 }
+
 
 //(getUsuario) obtener usuarios por userName o Mail para luego poder logar
 
@@ -55,5 +60,5 @@ const crearUsuario =
 
 
 module.exports = {
-    crearUsuario, getUsuarioLogin, getAll, getByUserName
+    crearUsuario, getUsuarioLogin, getAll, getById
 }
