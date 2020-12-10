@@ -3,9 +3,10 @@ GET http://localhost:3000/api/usuarios
 
 ###
 
-//OBTENER USUARIO POR USERNAME
+//OBTENER USUARIO POR ID
 
-GET http://localhost:3000/api/usuarios/Carmelo
+GET http://localhost:3000/api/usuarios/1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOjIyLCJjYWR1Y2lkYWQiOjE2MDg0NjExOTUsImlhdCI6MTYwNzU5NzE5NX0.HRnCeSPoAW995VRmORFm10eAaOrQCeSDB8K34R2_jqI
 
 
 ###
@@ -24,10 +25,17 @@ Content-Type: application/json
 ###
 
 //LOGAR USUARIO
-POST http://localhost:3000/api/usuarios/login
+POST http://localhost:3000/api/login
 Content-Type: application/json
 
 {
-    "valorLogin": "Carmelo",
-    "password": "Carmelo123"
+    "valorLogin": "Paria",
+    "password": "Paria12"
 }
+
+###
+
+//USUARIO LOGADO
+
+GET  http://localhost:3000/api/usuarios/user
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOjIyLCJjYWR1Y2lkYWQiOjE2MDg0NjExOTUsImlhdCI6MTYwNzU5NzE5NX0.HRnCeSPoAW995VRmORFm10eAaOrQCeSDB8K34R2_jqI

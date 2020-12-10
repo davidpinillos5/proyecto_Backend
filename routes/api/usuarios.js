@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dayjs = require('dayjs')
 
-const { crearUsuario, getUsuarioLogin, getAll, getByUserName } = require('../../models/usuario');
+const { crearUsuario, getAll, getById } = require('../../models/usuario');
 //Aqui van las peticiones
 
 
@@ -17,15 +17,29 @@ router.get('/', async (req, res) => {
     }
 });
 
-//obtener usuario por UserName
+//Obtener un usuario logado
+//! no poner debajo de la siguiente ruta, se solapan
 
-
-router.get('/:username', async (req, res) => {
+router.get('/user', async (req, res) => {
 
     try {
-        const usuario = await getByUserName(req.params.username)
-        console.log(usuario);
-        console.log(req.params.username);
+        const rows = await getById(req.user.id)
+        /*   console.log('el id es : ' + req.user.id); */
+        res.json(rows);
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+})
+
+//obtener usuario por ID
+
+
+router.get('/:usuarioId', async (req, res) => {
+
+    try {
+        const usuario = await getById(req.params.usuarioId)
+        /* console.log(usuario); */
+        /*  console.log(req.params.usuarioId); */
 
         res.json(usuario)
     } catch (error) {
@@ -33,7 +47,9 @@ router.get('/:username', async (req, res) => {
     }
 })
 
-//registro y login
+
+
+//registro
 
 router.post('/registro', async (req, res) => {
     try {
@@ -47,29 +63,25 @@ router.post('/registro', async (req, res) => {
 
 })
 
-router.post('/login', async (req, res) => {
+/* router.post('/login', async (req, res) => {
 
-    //getUsuarioLogin devuelve un usuario logado
+    
 
     const password = req.body.password
-    /*  console.log(password); */
-
+    
+    // ! Al poner mal el usuario en el front da un error de titulo of undefined.
     try {
         const usuario = await getUsuarioLogin(req.body.valorLogin)
         usuario.titulo = 'USUARIO AÑADIDO'
-        /*     console.log(usuario.password);
-            console.log(req.body.valorLogin);
-            console.log(usuario);
-            console.log(req.body); */
+        
 
         if (!usuario)
             return res.json({ error: 'Usuario o contraseña incorrectos' })
 
         const igualPassword = bcrypt.compareSync(password, usuario.password)
-        console.log(igualPassword);
+    
         if (!igualPassword) return res.json({ error: 'Usuario o contraseña incorrectos(pw)' })
 
-        /* console.log(createToken(usuario)); */
 
 
         res.json({
@@ -87,8 +99,19 @@ router.post('/login', async (req, res) => {
         }
         return jwt.sign(obj, process.env.SECRET_KEY);
     }
-})
+}) */
 
+
+/* router.post('/token', (req, res) => {
+    const id = getIdByToken(req.body.token);
+
+
+    function getIdByToken(token) {
+        return jwt.verify(token, process.env.SECRET_KEY);
+    }
+
+    return res.json(id)
+}) */
 
 
 
