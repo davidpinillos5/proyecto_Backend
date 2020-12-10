@@ -13,7 +13,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOjIyLCJjYWR1
 
 //CREAR USUARIO
 
-POST http://localhost:3000/api/usuarios/registro
+POST http://localhost:3000/api/login/registro
 Content-Type: application/json
 
 {

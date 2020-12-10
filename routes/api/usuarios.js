@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dayjs = require('dayjs')
 
-const { crearUsuario, getAll, getById } = require('../../models/usuario');
+const { getAll, getById } = require('../../models/usuario');
 //Aqui van las peticiones
 
 
@@ -51,7 +51,7 @@ router.get('/:usuarioId', async (req, res) => {
 
 //registro
 
-router.post('/registro', async (req, res) => {
+/* router.post('/registro', async (req, res) => {
     try {
         req.body.password = bcrypt.hashSync(req.body.password, 10)
         const result = await crearUsuario(req.body);
@@ -61,7 +61,7 @@ router.post('/registro', async (req, res) => {
         res.json({ error: error.message })
     }
 
-})
+}) */
 
 /* router.post('/login', async (req, res) => {
 

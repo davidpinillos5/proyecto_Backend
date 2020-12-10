@@ -3,7 +3,24 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dayjs = require('dayjs')
 
-const { getUsuarioLogin } = require('../../models/usuario');
+const { getUsuarioLogin, crearUsuario } = require('../../models/usuario');
+
+
+
+
+//registro
+
+router.post('/registro', async (req, res) => {
+    try {
+        req.body.password = bcrypt.hashSync(req.body.password, 10)
+        const result = await crearUsuario(req.body);
+        result.aviso = 'Añadido correctamente'
+        res.json(result);
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+
+})
 
 
 router.post('/', async (req, res) => {
