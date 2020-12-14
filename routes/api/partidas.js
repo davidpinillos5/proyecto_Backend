@@ -24,6 +24,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const result = await crearPartida(req.body);
+    console.log(req.body);
 
     if (result.affectedRows === 1) {
         const nuevaPartida = await getPartidaId(result.insertId);
