@@ -11,3 +11,10 @@ Content-Type: application/json
     "fk_modo_juego": 2,
     "fk_rango": 1
 }
+
+
+###
+
+//OBTENER PLATAFORMAS
+
+GET http://localhost:3000/api/partidas/plataformas

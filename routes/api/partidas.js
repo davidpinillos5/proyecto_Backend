@@ -1,11 +1,22 @@
 const router = require('express').Router()
 const partida = require('../../models/partida');
 const {
-    getPartidas, crearPartida, getPartidaId, borrarPartidaId
+    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas
 } = require('../../models/partida');
 
 const { body, validationResult } = require('express-validator');
 
+
+//recuperar plataformas
+
+router.get('/plataformas', async (req, res) => {
+    try {
+        const plataformas = await getPlataformas();
+        res.json(plataformas);
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+})
 //RUTA /api/partidas
 //Recuperar todas las partidas de la base de datos
 

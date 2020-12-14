@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
     // ! Al poner mal el usuario en el front da un error de titulo of undefined.
     try {
         const usuario = await getUsuarioLogin(req.body.valorLogin)
-        usuario.titulo = 'USUARIO AÑADIDO'
+        /* usuario.titulo = 'USUARIO AÑADIDO' */
         /*     console.log(usuario.password);
             console.log(req.body.valorLogin);
             console.log(usuario);

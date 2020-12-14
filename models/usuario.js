@@ -55,10 +55,22 @@ const crearUsuario =
 
     }
 
+//Modificar un usuario a través de su id
+
+const modificarUsuarioById = (usuarioId, { username, email, plataforma_preferida, juego_preferido }) => {
+    return new Promise((resolve, reject) => {
+        db.query('UPDATE usuarios set username = ?, email = ?, plataforma_preferida = ?, juego_preferido = ? WHERE usuarios.id = ?', [username, email, plataforma_preferida, juego_preferido, usuarioId], (err, result) => {
+            if (err) reject(err);
+            resolve(result)
+        })
+    })
+
+}
+
 
 
 
 
 module.exports = {
-    crearUsuario, getUsuarioLogin, getAll, getById
+    crearUsuario, getUsuarioLogin, getAll, getById, modificarUsuarioById
 }
