@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const partida = require('../../models/partida');
 const {
-    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas
+    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas, getPartidasFull
 } = require('../../models/partida');
 
 const { body, validationResult } = require('express-validator');
@@ -30,6 +30,26 @@ router.get('/', async (req, res) => {
         res.json({ error: error.message });
     }
 });
+
+router.get('/full', async (req, res) => {
+    try {
+        const partidas = await getPartidasFull();
+        res.json(partidas)
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+})
+
+//GET partida by id
+
+router.get('/partida/:partidaId', async (req, res) => {
+    try {
+        const partida = await getPartidaId(req.params.partidaId);
+        res.json(partida);
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+})
 
 //Crear una nueva partida
 
