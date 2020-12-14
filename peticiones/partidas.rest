@@ -12,6 +12,7 @@ Content-Type: application/json
     "fk_rango": 1
 }
 
+<<<<<<< HEAD
 ### 
 
 GET http://localhost:3000/api/partidas
@@ -23,6 +24,19 @@ Content-Type: application/json
 {
 
 }
+=======
+###
+
+//Get partidas FULL
+
+GET http://localhost:3000/api/partidas/full
+
+###
+
+//Get partida by ID
+
+GET http://localhost:3000/api/partidas/partida/2
+>>>>>>> acd25a5605a5b1d3d39d6685e0553afdf7ed2b74
 
 ###
 
