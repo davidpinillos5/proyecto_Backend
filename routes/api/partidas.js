@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const partida = require('../../models/partida');
 const {
-    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas, getPartidasFull
+    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas, getPartidasFull, getPartidasFullById
 } = require('../../models/partida');
 
 const { body, validationResult } = require('express-validator');
@@ -31,10 +31,21 @@ router.get('/', async (req, res) => {
     }
 });
 
+//Get partidas FULL
 router.get('/full', async (req, res) => {
     try {
         const partidas = await getPartidasFull();
         res.json(partidas)
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+})
+
+//Get partidas FULL by Id
+router.get('/full/:partidaId', async (req, res) => {
+    try {
+        const partida = await getPartidasFullById(req.params.partidaId);
+        res.json(partida);
     } catch (error) {
         res.json({ error: error.message })
     }
