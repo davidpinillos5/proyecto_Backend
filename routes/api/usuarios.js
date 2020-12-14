@@ -3,7 +3,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dayjs = require('dayjs')
 
-const { getAll, getById } = require('../../models/usuario');
+const { getAll, getById, modificarUsuarioById } = require('../../models/usuario');
+const { json } = require('express');
 //Aqui van las peticiones
 
 
@@ -42,6 +43,28 @@ router.get('/:usuarioId', async (req, res) => {
         /*  console.log(req.params.usuarioId); */
 
         res.json(usuario)
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+})
+
+
+//Modificar un usuario por ID
+
+router.put('/', async (req, res) => {
+    console.log(req.body);
+    try {
+        const usuario = await modificarUsuarioById(req.body.id, req.body);
+        /* console.log(req.body) */
+        if (usuario.affectedRows === 1) {
+            const usuarioActualizado = await getById(req.body.id)
+            res.json({
+                mensaje: "Usuario actualizado",
+                cliente: usuarioActualizado
+            })
+        } else {
+            res.json({ error: 'No se ha podido actualizar' })
+        }
     } catch (error) {
         res.json({ error: error.message })
     }

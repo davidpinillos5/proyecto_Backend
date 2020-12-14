@@ -39,3 +39,26 @@ Content-Type: application/json
 
 GET  http://localhost:3000/api/usuarios/user
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOjIyLCJjYWR1Y2lkYWQiOjE2MDg0NjExOTUsImlhdCI6MTYwNzU5NzE5NX0.HRnCeSPoAW995VRmORFm10eAaOrQCeSDB8K34R2_jqI
+
+
+###
+
+//Modificar un usuario por ID
+
+PUT  http://localhost:3000/api/usuarios
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOjIyLCJjYWR1Y2lkYWQiOjE2MDg1NDU5NzQsImlhdCI6MTYwNzY4MTk3NH0.LxrMu9JY2AZai99xpScu-WvYgyALzKRIRgWUQgWILBo
+Content-Type: application/json
+
+
+
+
+{
+    
+    "username": "DientesDeCocodrilo",
+    "email": "Coco@drilo.com",
+    "plataforma_preferida": "Ps4",
+    "juego_preferido": "LoL",
+    "id": 8
+    
+}
+

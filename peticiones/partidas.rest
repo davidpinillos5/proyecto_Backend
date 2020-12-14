@@ -12,14 +12,9 @@ Content-Type: application/json
     "fk_rango": 1
 }
 
-### BUSCAMOS CON BIENDE PARTIDAS (DIENDE)
 
-GET http://localhost:3000/api/partidas
-GET http://localhost:3000/api/gordas
+###
 
-Content-Type: application/json
-Content-Type: application/j_balvin
+//OBTENER PLATAFORMAS
 
-{
-
-}
+GET http://localhost:3000/api/partidas/plataformas
