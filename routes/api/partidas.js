@@ -52,9 +52,9 @@ router.get('/full/:partidaId', async (req, res) => {
 })
 //Get partidas FULL by registro
 
-router.get('/full/partida/:registro', async (req, res) => {
+router.get('/full/partida/:registro_partida', async (req, res) => {
     try {
-        const partida = await getPartidasFullByRegistro(req.params.registro)
+        const partida = await getPartidasFullByRegistro(req.params.registro_partida)
         res.json(partida[0]);
     } catch (error) {
         res.json({ error: error.message })
