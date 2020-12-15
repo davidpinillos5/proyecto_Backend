@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const partida = require('../../models/partida');
 const {
-    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas, getPartidasFull, getPartidasFullById
+    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas, getPartidasFull, getPartidasFullById, unirPartida, getPartidasFullByRegistro
 } = require('../../models/partida');
 
 const { body, validationResult } = require('express-validator');
@@ -19,7 +19,7 @@ router.get('/plataformas', async (req, res) => {
 })
 //RUTA /api/partidas
 //Recuperar todas las partidas de la base de datos
-
+//! OBTENER LAS PARTIDAS POR EL REGISTRO NO POR EL ID, SI NO SE VAN A REPETIR
 router.get('/', async (req, res) => {
 
     try {
@@ -45,7 +45,17 @@ router.get('/full', async (req, res) => {
 router.get('/full/:partidaId', async (req, res) => {
     try {
         const partida = await getPartidasFullById(req.params.partidaId);
-        res.json(partida);
+        res.json(partida[0]);
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+})
+//Get partidas FULL by registro
+
+router.get('/full/partida/:registro', async (req, res) => {
+    try {
+        const partida = await getPartidasFullByRegistro(req.params.registro)
+        res.json(partida[0]);
     } catch (error) {
         res.json({ error: error.message })
     }
@@ -75,6 +85,15 @@ router.post('/', async (req, res) => {
         res.json({ error: 'Ha ocurrido un error en la inserción de la partida.' });
     }
 });
+
+router.post('/join/:partidaId', async (req, res) => {
+
+    const partidaId = getPartidaId(req.params.partidaId)
+    console.log(partidaId);
+    /*  req.body.cantidad_jugadores = partidaId.cantidad_jugadores + 1 */
+    const partida = await unirPartida(req.body);
+    res.json(partida)
+})
 
 //borrar partida
 
