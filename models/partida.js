@@ -47,7 +47,7 @@ const crearPartida = ({ fecha, descripcion, fk_usuario, fk_juego, fk_modo_juego,
     });
 };
 
-const unirPartida = ({ fecha, descripcion, fk_usuario, fk_juego, fk_modo_juego, fk_rango, jugadores_max, cantidad_jugadores, registro_partida }) => {
+const unirPartida = (registro_partida, { fecha, descripcion, fk_usuario, fk_juego, fk_modo_juego, fk_rango, jugadores_max, cantidad_jugadores }) => {
     return new Promise((resolve, reject) => {
 
         db.query('INSERT INTO partidas (fecha, descripcion, fk_usuario, fk_juego, fk_modo_juego, fk_rango, jugadores_max, cantidad_jugadores) VALUES (?,?,?,?,?,?,?,?)', [fecha, descripcion, fk_usuario, fk_juego, fk_modo_juego, fk_rango, jugadores_max, cantidad_jugadores, registro_partida], (err, res) => {
