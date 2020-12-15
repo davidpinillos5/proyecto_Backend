@@ -52,9 +52,10 @@ router.get('/full/:partidaId', async (req, res) => {
 })
 //Get partidas FULL by registro
 
-router.get('/full/partida/:registro', async (req, res) => {
+router.get('/full/partida/:registro_partida', async (req, res) => {
     try {
-        const partida = await getPartidasFullByRegistro(req.params.registro)
+        const partida = await getPartidasFullByRegistro(parseInt(req.params.registro_partida))
+        console.log(partida);
         res.json(partida[0]);
     } catch (error) {
         res.json({ error: error.message })
@@ -84,11 +85,12 @@ router.post('/', async (req, res) => {
         res.json({ error: 'Ha ocurrido un error en la inserción de la partida.' });
     }
 });
+//unirse a partida
 
-router.post('/join/:partidaId', async (req, res) => {
+router.post('/join/:registro_partida', async (req, res) => {
 
-    const partidaId = getPartidaId(req.params.partidaId)
-    console.log(partidaId);
+    const partidaId = getPartidaId(req.params.registro_partida)
+    console.log(registro_partida);
     /*  req.body.cantidad_jugadores = partidaId.cantidad_jugadores + 1 */
     const partida = await unirPartida(req.body);
     res.json(partida)
