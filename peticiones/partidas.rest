@@ -4,12 +4,31 @@ POST http://localhost:3000/api/partidas
 Content-Type: application/json
 
 {
-    "fecha": "Nombre nuevo",
-    "descripcion": "20/15/23",
+    "fecha": "2020/15/10",
+    "descripcion": "PRUEBAPRUEBAPRUEBA",
     "fk_usuario": 1,
     "fk_juego": 2,
     "fk_modo_juego": 2,
     "fk_rango": 1
+}
+
+###
+
+//Unirse a partida
+
+POST http://localhost:3000/api/partidas/join/1
+Content-Type: application/json
+
+{
+ "fecha": "20/15/23",
+    "descripcion": "20/15/23",
+    "fk_usuario": 1,
+    "fk_juego": 2,
+    "fk_modo_juego": 2,
+    "fk_rango": 1,
+    "jugadores_max": 3,
+    "cantidad_jugadores": 1
+
 }
 
 ###
