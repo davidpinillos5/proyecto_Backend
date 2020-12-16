@@ -65,3 +65,10 @@ GET http://localhost:3000/api/partidas/partida/2
 //OBTENER PLATAFORMAS
 
 GET http://localhost:3000/api/partidas/plataformas
+
+
+###
+
+//GET por registro
+
+GET http://localhost:3000/api/partidas/full/partida/89236301
