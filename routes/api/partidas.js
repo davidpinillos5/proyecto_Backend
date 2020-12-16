@@ -114,3 +114,5 @@ router.delete(':partidaId', async (req, res) => {
 });
 
 module.exports = router
+
+
