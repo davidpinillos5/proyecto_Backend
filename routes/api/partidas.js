@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const partida = require('../../models/partida');
 const {
-    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas, getPartidasFull, getPartidasFullById, unirPartida, getPartidasFullByRegistro
+    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas, getPartidasFull, getPartidasFullById, unirPartida, getPartidasFullByRegistro, insertarJugadorPartida, getPartidasByModoJuegoId
 } = require('../../models/partida');
 
 const { body, validationResult } = require('express-validator');
@@ -74,6 +74,19 @@ router.get('/partida/:partidaId', async (req, res) => {
     }
 })
 
+//GET partida by id de modo juego
+
+router.get('/modo/:id_modo', async (req, res) => {
+
+    console.log(req.params);
+    try {
+        const partidas = await getPartidasByModoJuegoId(req.params.id_modo)
+        res.json(partidas)
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+})
+
 //Crear una nueva partida
 
 router.post('/', async (req, res) => {
@@ -91,13 +104,17 @@ router.post('/', async (req, res) => {
 
 router.post('/join/:registro_partida', async (req, res) => {
 
-    const partidaId = getPartidaId(req.params.registro_partida)
-    console.log(registro_partida);
+    console.log(req.body);
+    const partidaRegistro = getPartidasFullByRegistro(req.body.registro_partida)
     /*  req.body.cantidad_jugadores = partidaId.cantidad_jugadores + 1 */
-    const partida = await unirPartida(req.body);
+    console.log(partidaRegistro)
+    const partida = await unirPartida(partidaRegistro, req.body);
     res.json(partida)
 })
 
+//insertar jugador en partida
+
+router.post('/')
 //borrar partida
 
 router.delete(':partidaId', async (req, res) => {
@@ -112,6 +129,10 @@ router.delete(':partidaId', async (req, res) => {
         res.json({ error: error.message });
     }
 });
+
+
+
+
 
 module.exports = router
 
