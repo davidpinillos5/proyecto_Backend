@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const partida = require('../../models/partida');
 const {
-    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas, getPartidasFull, getPartidasFullById, unirPartida, getPartidasFullByRegistro, insertarJugadorPartida, getPartidasByModoJuegoId
+    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas, getPartidasFull, getPartidasFullById, unirPartida, getPartidasFullByRegistro, insertarJugadorPartida, getPartidasByModoJuegoId, getPartidasByRangoId, getPartidasByDateAsc, getPartidasByDateDesc
 } = require('../../models/partida');
 
 const { body, validationResult } = require('express-validator');
@@ -87,6 +87,41 @@ router.get('/modo/:id_modo', async (req, res) => {
     }
 })
 
+//GET partida by id de rango
+
+router.get('/rango/:id_rango', async (req, res) => {
+    try {
+        const partidas = await getPartidasByRangoId(parseInt(req.params.id_rango))
+
+        res.json(partidas)
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+})
+
+//GET partidas ORDENADAS POR FECHA ASCENDENTE/DESCENDENTE por ID de JUEGO
+
+router.get('/asc/:id_juego', async (req, res) => {
+    try {
+        const partidas = await getPartidasByDateAsc(parseInt(req.params.id_juego))
+
+        res.json(partidas)
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+})
+
+router.get('/desc/:id_juego', async (req, res) => {
+    try {
+        const partidas = await getPartidasByDateDesc(parseInt(req.params.id_juego))
+
+        res.json(partidas)
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+})
+
+
 //Crear una nueva partida
 
 router.post('/', async (req, res) => {
@@ -109,6 +144,7 @@ router.post('/join/:registro_partida', async (req, res) => {
     /*  req.body.cantidad_jugadores = partidaId.cantidad_jugadores + 1 */
     console.log(partidaRegistro)
     const partida = await unirPartida(partidaRegistro, req.body);
+    partida.cantidad_jugadores++
     res.json(partida)
 })
 

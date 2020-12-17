@@ -108,13 +108,15 @@ const insertarJugadorPartida = (username, fk_partida, fk_usuario) => {
     })
 } */
 
+//*FILTROS 
 
 //OBTENER PARTIDAS POR MODO DE JUEGO
 
 const getPartidasByModoJuegoId = (id_modo) => {
+
     console.log(id_modo);
     return new Promise((resolve, reject) => {
-        db.query('SELECT p.*, mj.id "id_modo", mj.fk_juego "modo_fk_juego", mj.nombre "nombre_modo", mj.numero_jugadores  FROM partidas p, modo_juego mj WHERE p.fk_modo_juego = mj.id AND mj.id = ?;', [id_modo], (err, res) => {
+        db.query('SELECT u.id "id_usuario", j.id "id_juego", j.nombre "nombre_juego", j.imagen "imagen_juego", j.logo "logo_juego", j.estadisticas, u.username, p.cantidad_jugadores, p.jugadores_max, p.registro_partida, p.id "id_partida", p.fecha, p.descripcion, p.fk_usuario, p.fk_juego, p.fk_modo_juego, p.fk_rango, mj.id "id_modo", mj.fk_juego "fk_juego_modo", mj.nombre "nombre_modo", mj.numero_jugadores, r.id "id_rango", r.imagen_rango, r.fk_juego "fk_juego_rango", r.rango FROM usuarios u, partidas p, modo_juego mj, rangos r, juegos j WHERE p.fk_modo_juego = mj.id AND p.fk_rango = r.id AND p.fk_usuario = u.id AND p.fk_juego = j.id AND mj.id = ?;', [id_modo], (err, res) => {
             if (err) reject(err);
 
             resolve(res)
@@ -123,6 +125,42 @@ const getPartidasByModoJuegoId = (id_modo) => {
     })
 }
 
+
+//OBTENER PARTIDAS POR RANGO
+
+const getPartidasByRangoId = (id_rango) => {
+
+    console.log(id_rango);
+    return new Promise((resolve, reject) => {
+        db.query('SELECT u.id "id_usuario", j.id "id_juego", j.nombre "nombre_juego", j.imagen "imagen_juego", j.logo "logo_juego", j.estadisticas, u.username, p.cantidad_jugadores, p.jugadores_max, p.registro_partida, p.id "id_partida", p.fecha, p.descripcion, p.fk_usuario, p.fk_juego, p.fk_modo_juego, p.fk_rango, mj.id "id_modo", mj.fk_juego "fk_juego_modo", mj.nombre "nombre_modo", mj.numero_jugadores, r.id "id_rango", r.imagen_rango, r.fk_juego "fk_juego_rango", r.rango FROM usuarios u, partidas p, modo_juego mj, rangos r, juegos j WHERE p.fk_modo_juego = mj.id AND p.fk_rango = r.id AND p.fk_usuario = u.id AND p.fk_juego = j.id AND r.id = ?;', [id_rango], (err, res) => {
+            if (err) reject(err);
+
+            resolve(res)
+
+        })
+    })
+}
+
+//OBTENER PARTIDAS POR FILTRO DE FECHA Y JUEGO
+
+const getPartidasByDateAsc = (juego_id) => {
+    return new Promise((resolve, reject) => {
+        db.query('SELECT u.id "id_usuario", j.id "id_juego", j.nombre "nombre_juego", j.imagen "imagen_juego", j.logo "logo_juego",j.estadisticas, u.username, p.cantidad_jugadores, p.jugadores_max, p.id "id_partida", p.registro_partida, p.fecha, p.descripcion, p.fk_usuario, p.fk_juego, p.fk_modo_juego, p.fk_rango, mj.id "id_modo", mj.fk_juego "fk_juego_modo", mj.nombre "nombre_modo", mj.numero_jugadores,r.imagen_rango, r.id "id_rango", r.fk_juego "fk_juego_rango", r.rango FROM usuarios u, partidas p, modo_juego mj, rangos r, juegos j WHERE p.fk_modo_juego = mj.id AND p.fk_rango = r.id AND p.fk_usuario = u.id AND p.fk_juego = j.id AND j.id = ? ORDER BY fecha ASC;', [juego_id], (err, res) => {
+            if (err) reject(err);
+            resolve(res)
+        })
+    })
+}
+
+const getPartidasByDateDesc = (juego_id) => {
+    return new Promise((resolve, reject) => {
+        db.query('SELECT u.id "id_usuario", j.id "id_juego", j.nombre "nombre_juego", j.imagen "imagen_juego", j.logo "logo_juego",j.estadisticas, u.username, p.cantidad_jugadores, p.jugadores_max, p.id "id_partida", p.registro_partida, p.fecha, p.descripcion, p.fk_usuario, p.fk_juego, p.fk_modo_juego, p.fk_rango, mj.id "id_modo", mj.fk_juego "fk_juego_modo", mj.nombre "nombre_modo", mj.numero_jugadores,r.imagen_rango, r.id "id_rango", r.fk_juego "fk_juego_rango", r.rango FROM usuarios u, partidas p, modo_juego mj, rangos r, juegos j WHERE p.fk_modo_juego = mj.id AND p.fk_rango = r.id AND p.fk_usuario = u.id AND p.fk_juego = j.id AND j.id = ? ORDER BY fecha DESC;', [juego_id], (err, res) => {
+            if (err) reject(err);
+            resolve(res)
+        })
+    })
+}
+
 module.exports = {
-    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas, getPartidasFull, getPartidasFullById, unirPartida, getPartidasFullByRegistro, insertarJugadorPartida, getPartidasByModoJuegoId
+    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas, getPartidasFull, getPartidasFullById, unirPartida, getPartidasFullByRegistro, insertarJugadorPartida, getPartidasByModoJuegoId, getPartidasByRangoId, getPartidasByDateAsc, getPartidasByDateDesc
 }

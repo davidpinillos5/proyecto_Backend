@@ -47,7 +47,20 @@ Content-Type: application/json
 
 //GET PARTIDA BY ID MODO JUEGO
 
-GET http://localhost:3000/api/partidas/modo/1
+
+GET http://localhost:3000/api/partidas/modo/2
+
+###
+
+//GET PARTIDAS BY ID RANGO
+GET http://localhost:3000/api/partidas/rango/3
+
+
+###
+
+//GET PARTIDA BY ID JUEGO MAS ANTIGUAS PRIMERO
+
+GET http://localhost:3000/api/partidas/asc/0
 
 ###
 
