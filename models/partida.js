@@ -112,8 +112,9 @@ const insertarJugadorPartida = (username, fk_partida, fk_usuario) => {
 //OBTENER PARTIDAS POR MODO DE JUEGO
 
 const getPartidasByModoJuegoId = (id_modo) => {
+    console.log(id_modo);
     return new Promise((resolve, reject) => {
-        db.query('SELECT p.*, mj.id "id_modo", mj.fk_juego "modo_fk_juego", mj.nombre "nombre_modo", mj.numero_jugadores  FROM partidas p, modo_juego mj WHERE p.fk_modo_juego = mj.id;', [id_modo], (err, res) => {
+        db.query('SELECT p.*, mj.id "id_modo", mj.fk_juego "modo_fk_juego", mj.nombre "nombre_modo", mj.numero_jugadores  FROM partidas p, modo_juego mj WHERE p.fk_modo_juego = mj.id AND mj.id = ?;', [id_modo], (err, res) => {
             if (err) reject(err);
 
             resolve(res)

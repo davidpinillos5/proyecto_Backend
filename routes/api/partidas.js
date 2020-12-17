@@ -80,7 +80,7 @@ router.get('/modo/:id_modo', async (req, res) => {
 
     console.log(req.params);
     try {
-        const partidas = await getPartidasByModoJuegoId(req.params.id_modo)
+        const partidas = await getPartidasByModoJuegoId(parseInt(req.params.id_modo))
         res.json(partidas)
     } catch (error) {
         res.json({ error: error.message })
