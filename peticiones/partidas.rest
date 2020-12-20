@@ -31,7 +31,7 @@ POST http://localhost:3000/api/partidas/join/15605133
 Content-Type: application/json
 
 {
- "fecha": "20/15/23",
+
     "descripcion": "20/15/23",
     "fk_usuario": 1,
     "fk_juego": 2,
@@ -45,6 +45,30 @@ Content-Type: application/json
 
 ###
 
+
+
+///Modificar partida
+
+PUT  http://localhost:3000/api/partidas/update
+Content-Type: application/json
+
+{
+    "registro_partida": 86121195
+}
+
+###
+
+//GET REGISTROS
+
+GET  http://localhost:3000/api/partidas/rg
+
+###
+
+//GET JUGADORES BY REGISTRO
+
+GET http://localhost:3000/api/partidas/players/88791470
+
+###
 //GET PARTIDA BY ID MODO JUEGO
 
 
@@ -53,14 +77,14 @@ GET http://localhost:3000/api/partidas/modo/2
 ###
 
 //GET PARTIDAS BY ID RANGO
-GET http://localhost:3000/api/partidas/rango/3
+GET http://localhost:3000/api/partidas/rango/1/1
 
 
 ###
 
 //GET PARTIDA BY ID JUEGO MAS ANTIGUAS PRIMERO
 
-GET http://localhost:3000/api/partidas/asc/0
+GET http://localhost:3000/api/partidas/asc/0/1
 
 ###
 
@@ -80,6 +104,13 @@ GET http://localhost:3000/api/partidas/full/1
 
 GET http://localhost:3000/api/partidas/partida/2
 
+
+###
+
+
+//GET partidas ----------------------------------PAGINAS-------------------------------
+
+GET http://localhost:3000/api/partidas/pagina/0/2
 ###
 
 //OBTENER PLATAFORMAS
@@ -91,4 +122,10 @@ GET http://localhost:3000/api/partidas/plataformas
 
 //GET por registro
 
-GET http://localhost:3000/api/partidas/full/partida/15605133
+GET http://localhost:3000/api/partidas/full/partida/86121195
+
+###
+
+//GET REGISTROS POR PARTIDA
+
+GET http://localhost:3000/api/partidas/registro/86121195

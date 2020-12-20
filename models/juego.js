@@ -19,7 +19,7 @@ const getJuegoById = (juegoId) => {
     return new Promise((resolve, reject) => {
         db.query('SELECT * FROM juegos WHERE juegos.id = ?', [juegoId], (err, juego) => {
             if (err) reject(err)
-            resolve(juego);
+            resolve(juego[0]);
         })
     })
 }
@@ -32,6 +32,26 @@ const getModosByIdJuego = (juegoId) => {
             if (err) reject(err);
             resolve(modosJuego)
 
+        })
+    })
+}
+
+//Obtener un modo de juego
+
+const getModoById = (modoId) => {
+    return new Promise((resolve, reject) => {
+        db.query('SELECT * from modo_juego WHERE modo_juego.id = ?', [modoId], (err, res) => {
+            if (err) reject(err);
+            resolve(res[0])
+        })
+    })
+}
+
+const getRangoById = (rangoId) => {
+    return new Promise((resolve, reject) => {
+        db.query('SELECT * from rangos WHERE rangos.id = ?', [rangoId], (err, res) => {
+            if (err) reject(err);
+            resolve(res[0])
         })
     })
 }
@@ -74,7 +94,7 @@ const getJugadoresByModoJuego = (modoJuegoId) => {
 }
 
 module.exports = {
-    getJuegos, getJuegoById, getModosByIdJuego, getPartidasByIdJuego, getRangosByIdjuego, getJugadoresByModoJuego
+    getJuegos, getJuegoById, getModosByIdJuego, getPartidasByIdJuego, getRangosByIdjuego, getJugadoresByModoJuego, getModoById, getRangoById
 
 }
 
