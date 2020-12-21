@@ -58,9 +58,15 @@ Content-Type: application/json
 
 ###
 
-//GET REGISTROS
+//GET REGISTROS by idJuego paginadas
 
-GET  http://localhost:3000/api/partidas/rg
+GET  http://localhost:3000/api/partidas/rg/0/1
+
+###
+
+//GET REGISTROS by idJuego
+
+GET  http://localhost:3000/api/partidas/rg/0
 
 ###
 
@@ -76,15 +82,21 @@ GET http://localhost:3000/api/partidas/modo/2
 
 ###
 
+//BY ID MODO JUEGO
+GET http://localhost:3000/api/partidas/rg/modo/0/4/1
+
+###
+
+
 //GET PARTIDAS BY ID RANGO
-GET http://localhost:3000/api/partidas/rango/1/1
+GET http://localhost:3000/api/partidas/rg/0/2/1
 
 
 ###
 
 //GET PARTIDA BY ID JUEGO MAS ANTIGUAS PRIMERO
 
-GET http://localhost:3000/api/partidas/asc/0/1
+GET http://localhost:3000/api/partidas/rg/asc/1/1
 
 ###
 

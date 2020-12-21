@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const partida = require('../../models/partida');
 const {
-    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas, getPartidasFull, getPartidasFullById, unirPartida, getPartidasFullByRegistro, insertarJugadorPartida, getPartidasByModoJuegoId, getPartidasByRangoId, getPartidasByDateAsc, getPartidasByDateDesc, getRegistrosByPartida, updateCantidadJugadores, getPartidasPaginadas, getPartidasFullPaginas, getRegistrosUnicos, getJugadoresByRegistroPartida
+    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas, getPartidasFull, getPartidasFullById, unirPartida, getPartidasFullByRegistro, insertarJugadorPartida, getPartidasByModoJuegoId, getPartidasByRangoId, getPartidasByDateAsc, getPartidasByDateDesc, getRegistrosByPartida, updateCantidadJugadores, getPartidasPaginadas, getPartidasFullPaginas, getRegistrosUnicos, getJugadoresByRegistroPartida, getRegistrosUnicosByAsc, getRegistrosUnicosByIdRango, getFechasByregistro, getRegistrosByIdModo, getRegistrosUnicosFull
 } = require('../../models/partida');
 
 const { body, validationResult } = require('express-validator');
@@ -147,15 +147,92 @@ router.get('/registro/:registro_partida', async (req, res) => {
         res.json({ error: error.message })
     }
 })
-//! ________________________________________________________________________
-router.get('/rg', async (req, res) => {
+//GET FULL REGISTROS
+router.get('/rg/:idJuego', async (req, res) => {
     try {
-        const arrRegistros = await getRegistrosUnicos()
+        const arrRegistros = await getRegistrosUnicosFull(req.params.idJuego)
         for (registro of arrRegistros) {
             registro.juego = await getJuegoById(registro.fk_juego)
             registro.modo_juego = await getModoById(registro.fk_modo_juego)
             registro.rango = await getRangoById(registro.fk_rango)
             registro.jugadores = await getJugadoresByRegistroPartida(registro.registro_partida)
+            registro.fecha = await getFechasByregistro(registro.registro_partida)
+        }
+        res.json(arrRegistros)
+
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+})
+
+
+//GET REGISTROS PAGINADOS
+router.get('/rg/:idJuego/:pagina', async (req, res) => {
+    try {
+        const arrRegistros = await getRegistrosUnicos(req.params.idJuego, req.params.pagina)
+        for (registro of arrRegistros) {
+            registro.juego = await getJuegoById(registro.fk_juego)
+            registro.modo_juego = await getModoById(registro.fk_modo_juego)
+            registro.rango = await getRangoById(registro.fk_rango)
+            registro.jugadores = await getJugadoresByRegistroPartida(registro.registro_partida)
+            registro.fecha = await getFechasByregistro(registro.registro_partida)
+        }
+        res.json(arrRegistros)
+
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+})
+
+//GET BY ANTIGUOS
+router.get('/rg/asc/:idJuego/:pagina', async (req, res) => {
+    try {
+        const arrRegistros = await getRegistrosUnicosByAsc(req.params.idJuego, req.params.pagina)
+        for (registro of arrRegistros) {
+            registro.juego = await getJuegoById(registro.fk_juego)
+            registro.modo_juego = await getModoById(registro.fk_modo_juego)
+            registro.rango = await getRangoById(registro.fk_rango)
+            registro.jugadores = await getJugadoresByRegistroPartida(registro.registro_partida)
+            registro.fecha = await getFechasByregistro(registro.registro_partida)
+        }
+        res.json(arrRegistros)
+
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+})
+
+//GET BY RECIENTES 
+
+//GET BY RANGO
+router.get('/rg/rango/:idJuego/:idRango/:pagina', async (req, res) => {
+    try {
+        const arrRegistros = await getRegistrosUnicosByIdRango(req.params.idJuego, req.params.idRango, req.params.pagina)
+        for (registro of arrRegistros) {
+            registro.juego = await getJuegoById(registro.fk_juego)
+            registro.modo_juego = await getModoById(registro.fk_modo_juego)
+            registro.rango = await getRangoById(registro.fk_rango)
+            registro.jugadores = await getJugadoresByRegistroPartida(registro.registro_partida)
+            registro.fecha = await getFechasByregistro(registro.registro_partida)
+        }
+        res.json(arrRegistros)
+
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+})
+
+//GET REGISTROS BY MODO
+
+router.get('/rg/modo/:idJuego/:idModo/:pagina', async (req, res) => {
+    try {
+        const arrRegistros = await getRegistrosByIdModo(req.params.idJuego, req.params.idModo, req.params.pagina)
+        for (registro of arrRegistros) {
+            registro.juego = await getJuegoById(registro.fk_juego)
+            registro.modo_juego = await getModoById(registro.fk_modo_juego)
+            registro.rango = await getRangoById(registro.fk_rango)
+            registro.jugadores = await getJugadoresByRegistroPartida(registro.registro_partida)
+            registro.fecha = await getFechasByregistro(registro.registro_partida)
         }
         res.json(arrRegistros)
 

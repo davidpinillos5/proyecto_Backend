@@ -212,9 +212,37 @@ const getPartidasFullPaginas = (idJuego, pagina) => {
     })
 }
 
-const getRegistrosUnicos = () => {
+//ALL LOS REGISTROS
+const getRegistrosUnicosFull = (idJuego) => {
     return new Promise((resolve, reject) => {
-        db.query('SELECT DISTINCT (partidas.registro_partida), partidas.fk_juego, partidas.fk_modo_juego, partidas.fk_rango, partidas.jugadores_max, partidas.cantidad_jugadores FROM partidas;', (err, res) => {
+        db.query('SELECT DISTINCT (partidas.registro_partida), partidas.fk_juego, partidas.fk_modo_juego, partidas.fk_rango, partidas.jugadores_max, partidas.cantidad_jugadores FROM partidas WHERE partidas.fk_juego = ? ORDER BY fecha desc;', [idJuego,], (err, res) => {
+            if (err) reject(err);
+            resolve(res)
+        })
+    })
+}
+//REGISTROS POR PAGINA
+const getRegistrosUnicos = (idJuego, pagina) => {
+    return new Promise((resolve, reject) => {
+        db.query('SELECT DISTINCT (partidas.registro_partida), partidas.fk_juego, partidas.fk_modo_juego, partidas.fk_rango, partidas.jugadores_max, partidas.cantidad_jugadores FROM partidas WHERE partidas.fk_juego = ? ORDER BY fecha desc LIMIT 10 OFFSET ?;', [idJuego, ((pagina - 1) * 10)], (err, res) => {
+            if (err) reject(err);
+            resolve(res)
+        })
+    })
+}
+
+const getRegistrosUnicosByAsc = (idJuego, pagina) => {
+    return new Promise((resolve, reject) => {
+        db.query('SELECT DISTINCT (partidas.registro_partida), partidas.fk_juego, partidas.fk_modo_juego, partidas.fk_rango, partidas.jugadores_max, partidas.cantidad_jugadores FROM partidas WHERE partidas.fk_juego = ? ORDER BY fecha asc LIMIT 10 OFFSET ?;', [idJuego, ((pagina - 1) * 10)], (err, res) => {
+            if (err) reject(err);
+            resolve(res)
+        })
+    })
+}
+
+const getRegistrosUnicosByIdRango = (idJuego, idRango, pagina) => {
+    return new Promise((resolve, reject) => {
+        db.query('SELECT DISTINCT (partidas.registro_partida), partidas.fk_juego, partidas.fk_modo_juego, partidas.fk_rango, partidas.jugadores_max, partidas.cantidad_jugadores FROM partidas WHERE partidas.fk_juego = ? AND partidas.fk_rango = ? ORDER BY fecha desc LIMIT 10 OFFSET ?;', [idJuego, idRango, ((pagina - 1) * 10)], (err, res) => {
             if (err) reject(err);
             resolve(res)
         })
@@ -230,6 +258,24 @@ const getJugadoresByRegistroPartida = (registro_partida) => {
         })
     })
 }
+
+const getFechasByregistro = (registro_partida) => {
+    return new Promise((resolve, reject) => {
+        db.query('SELECT partidas.fecha FROM partidas WHERE partidas.registro_partida = ? ORDER BY fecha asc LIMIT 1;', [registro_partida], (err, res) => {
+            if (err) reject(err);
+            resolve(res[0])
+        })
+    })
+}
+
+const getRegistrosByIdModo = (idJuego, idModo, pagina) => {
+    return new Promise((resolve, reject) => {
+        db.query('SELECT DISTINCT (partidas.registro_partida), partidas.fk_juego, partidas.fk_modo_juego, partidas.fk_rango, partidas.jugadores_max, partidas.cantidad_jugadores FROM partidas WHERE partidas.fk_juego = ? AND partidas.fk_modo_juego = ? ORDER BY fecha desc LIMIT 10 OFFSET ?;', [idJuego, idModo, ((pagina - 1) * 10)], (err, res) => {
+            if (err) reject(err);
+            resolve(res)
+        })
+    })
+}
 module.exports = {
-    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas, getPartidasFull, getPartidasFullById, unirPartida, getPartidasFullByRegistro, insertarJugadorPartida, getPartidasByModoJuegoId, getPartidasByRangoId, getPartidasByDateAsc, getPartidasByDateDesc, getRegistrosByPartida, updateCantidadJugadores, getPartidasPaginadas, getPartidasFullPaginas, getRegistrosUnicos, getJugadoresByRegistroPartida
+    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas, getPartidasFull, getPartidasFullById, unirPartida, getPartidasFullByRegistro, insertarJugadorPartida, getPartidasByModoJuegoId, getPartidasByRangoId, getPartidasByDateAsc, getPartidasByDateDesc, getRegistrosByPartida, updateCantidadJugadores, getPartidasPaginadas, getPartidasFullPaginas, getRegistrosUnicos, getJugadoresByRegistroPartida, getRegistrosUnicosByAsc, getRegistrosUnicosByIdRango, getFechasByregistro, getRegistrosByIdModo, getRegistrosUnicosFull
 }
