@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const partida = require('../../models/partida');
 const {
-    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas, getPartidasFull, getPartidasFullById, unirPartida, getPartidasFullByRegistro, insertarJugadorPartida, getPartidasByModoJuegoId, getPartidasByRangoId, getPartidasByDateAsc, getPartidasByDateDesc, getRegistrosByPartida, updateCantidadJugadores, getPartidasPaginadas, getPartidasFullPaginas, getRegistrosUnicos, getJugadoresByRegistroPartida, getRegistrosUnicosByAsc, getRegistrosUnicosByIdRango, getFechasByregistro, getRegistrosByIdModo, getRegistrosUnicosFull
+    getPartidas, crearPartida, getPartidaId, borrarPartidaId, getPlataformas, getPartidasFull, getPartidasFullById, unirPartida, getPartidasFullByRegistro, insertarJugadorPartida, getPartidasByModoJuegoId, getPartidasByRangoId, getPartidasByDateAsc, getPartidasByDateDesc, getRegistrosByPartida, updateCantidadJugadores, getPartidasPaginadas, getPartidasFullPaginas, getRegistrosUnicos, getJugadoresByRegistroPartida, getRegistrosUnicosByAsc, getRegistrosUnicosByIdRango, getFechasByregistro, getRegistrosByIdModo, getRegistrosUnicosFull, getPartidasFullByPlayer
 } = require('../../models/partida');
 
 const { body, validationResult } = require('express-validator');
@@ -65,6 +65,16 @@ router.get('/full/partida/:registro_partida', async (req, res) => {
     }
 })
 
+//Get partidas full by JUGADOR
+router.get('/jugador/:idUsuario', async (req, res) => {
+    try {
+        const partidas = await getPartidasFullByPlayer(parseInt(req.params.idUsuario))
+
+        res.json(partidas);
+    } catch (error) {
+        res.json({ error: error.message })
+    }
+})
 //GET partida by id
 
 router.get('/partida/:partidaId', async (req, res) => {
@@ -147,7 +157,12 @@ router.get('/registro/:registro_partida', async (req, res) => {
         res.json({ error: error.message })
     }
 })
-//GET FULL REGISTROS
+
+//GET REGISTROS BY JUGADOR
+
+
+
+//GET FULL REGISTROS By juego
 router.get('/rg/:idJuego', async (req, res) => {
     try {
         const arrRegistros = await getRegistrosUnicosFull(req.params.idJuego)

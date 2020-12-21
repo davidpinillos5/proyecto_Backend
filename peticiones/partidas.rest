@@ -70,6 +70,12 @@ GET  http://localhost:3000/api/partidas/rg/0
 
 ###
 
+//GET PARTIDAS BY JUGADOR ORDER BY DESC LIMIT 5
+
+GET http://localhost:3000/api/partidas/jugador/35
+
+###
+
 //GET JUGADORES BY REGISTRO
 
 GET http://localhost:3000/api/partidas/players/88791470
