@@ -57,6 +57,8 @@ router.get('/full/:partidaId', async (req, res) => {
 router.get('/full/partida/:registro_partida', async (req, res) => {
     try {
         const partida = await getPartidasFullByRegistro(parseInt(req.params.registro_partida))
+        const jugadores = await getJugadoresByRegistroPartida(req.params.registro_partida)
+        partida[0].jugadores = jugadores
         console.log(partida);
         console.log(req.params);
         res.json(partida[0]);
@@ -284,9 +286,9 @@ router.post('/', async (req, res) => {
 router.post('/join/:registro', async (req, res) => {
 
 
-    const partidaRegistro = getPartidasFullByRegistro(req.body.registro)
+    const partidaRegistro = await getPartidasFullByRegistro(req.body.registro)
     /*  req.body.cantidad_jugadores = partidaId.cantidad_jugadores + 1 */
-    /* console.log(partidaRegistro) */
+    console.log(partidaRegistro)
     console.log(req.body);
     const partida = await unirPartida(partidaRegistro, req.body);
 
