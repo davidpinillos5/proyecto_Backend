@@ -18,8 +18,6 @@ GET http://localhost:3000/api/partidas
 
 
 Content-Type: application/json
-
-
 {
 
 }
@@ -53,7 +51,7 @@ PUT  http://localhost:3000/api/partidas/update
 Content-Type: application/json
 
 {
-    "registro_partida": 86121195
+    "registro_partida": 88791470
 }
 
 ###
@@ -140,10 +138,10 @@ GET http://localhost:3000/api/partidas/plataformas
 
 //GET por registro
 
-GET http://localhost:3000/api/partidas/full/partida/86121195
+GET http://localhost:3000/api/partidas/full/partida/88791470
 
 ###
 
 //GET REGISTROS POR PARTIDA
 
-GET http://localhost:3000/api/partidas/registro/86121195
+GET http://localhost:3000/api/partidas/registro/88791470
